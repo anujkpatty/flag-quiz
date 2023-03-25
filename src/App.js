@@ -1,35 +1,28 @@
-import './App.css';
-import flags from './flags.json'
 import { useEffect, useState } from 'react';
+import './App.css';
+import Quiz from './pages/Quiz';
+import Results from './pages/Results';
+import flagset from './flags.json'
 
 function App() {
 
-  const [countryInput, setCountryInput] = useState('')
-  const [counter, setCounter] = useState(0)
-  const [correct, setCorrect] = useState(0)
-  const [loading, setLoading] = useState(true)
+  const [playing, setPlaying] = useState(true)
+  const [correctAnswers, setCorrectAnswers] = useState([])
+  const [flags, setFlags] = useState([...flagset])
 
-  function textChange(e) {
-    setCountryInput(e.target.value)
-    if (flags[counter].keys.includes(e.target.value.toLowerCase())  ) {
-      setCounter(counter + 1)
-      setCountryInput('')
-      setCorrect(correct + 1)
-    }
+  function giveUp() {
+    setPlaying(false)
   }
 
-  function moveBack() {
-    if (counter > 0) {
-      setCounter(counter - 1)
-    }
-  }
-  function moveForward() {
-    if (counter < flags.length - 1) {
-      setCounter(counter + 1)
-    }
+  function playAgain() {
+    setCorrectAnswers([])
+    setFlags([...flagset])
+    shuffleFlags()
+    setPlaying(true)
   }
 
-  function shuffle(array) {
+  function shuffleFlags() {
+    let array = flagset
     let currentIndex = array.length,  randomIndex;
   
     // While there remain elements to shuffle.
@@ -42,38 +35,39 @@ function App() {
       // And swap it with the current element.
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
-    }
-  
-    setLoading(false)
+    }  
   }
 
   useEffect(() => {
-    shuffle(flags)
+    shuffleFlags()
+    setFlags([...flagset])
+    
   }, [])
 
-  if (loading) {
-    return (
-    <div className='Splash'/>
-    )
-  }
 
-  return (  
-    <div className="App">
-      <h2>
-        <button className="Button" onClick={moveBack} >&lt;</button>  
-        {counter}/{flags.length}
-        <button className="Button" onClick={moveForward} >&gt;</button>
-      </h2>  
-      <img src={flags[counter].image} alt={flags[counter].keys[0]} height='250'/>
-      <input 
-        className='Text-entry'
-        type="text"
-        value={countryInput}
-        onChange={(event) => textChange(event)}
-      />
-    
-    </div>
-  );
+  if (playing) {
+    return (
+        <div className='App'>
+          <button className='Button' onClick={giveUp}>Give up</button>
+          <Quiz 
+            correctAnswers={correctAnswers}
+            setCorrectAnswers={setCorrectAnswers}
+            flags={flags}
+            setFlags={setFlags}
+          />
+        </div>
+      )
+  } else {
+    return ( 
+        <div className='App'>
+          <button className='Button' onClick={playAgain}>Play again</button>
+          <h2>
+            {Math.round(((correctAnswers.length / 195) * 100)) + '%'}
+          </h2>
+          <Results correct={[...correctAnswers]} incorrect={flags}/>
+        </div>
+      )
+  }
 }
 
 export default App;

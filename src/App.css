@@ -10,15 +10,49 @@
   color: white;
 }
 
-.Button {
-  height: 50px;
-  width: 50px;
-  margin: 15px;
-  border: 0px;
-  background-color: aquamarine;
-  border-radius: 25px;
-  font-size: 20px;
+.Quiz {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
+
+.Results {
+  background-color: #282c34;
+  width: 70%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.Item {
+  height: 100px;
+  width: 200px;
+  border: solid aliceblue;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  font-size: 2vh;
+}
+
+.Correct {
+  color: rgb(11, 170, 11);
+}
+
+.Incorrect {
+  color: rgb(201, 14, 14);
+}
+
 
 .Text-entry {
   height: 35px;
@@ -37,6 +71,38 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.arrow {
+  border: solid #282c34 ;
+  border-width: 0 5px 5px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.Button {
+  height: 40px;
+  margin: 15px;
+  border: 0px;
+  background-color: aquamarine;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.side {
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
 }
 
 
