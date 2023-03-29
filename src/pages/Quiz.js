@@ -46,7 +46,11 @@ function Quiz(props) {
         {props.correctAnswers.length}/{195}
         <button className="Button side" onClick={moveForward} ><i class="arrow right"></i></button>
       </h2>  
-      <img src={'/flags/' + props.flags[counter].image} alt={props.flags[counter].keys[0]} height='250' style={{marginBottom: 15}}/>
+      <img 
+        src={'https://github.com/anujkpatty/flag-quiz/blob/main/public/flags/'+ props.flags[counter].image.toLowerCase() +'?raw=true'} alt={props.flags[counter].keys[0]} 
+        height='250' 
+        style={{marginBottom: 15}}
+      />
       Answer:
       <input 
         id='country-input'
