@@ -35,7 +35,7 @@ function Quiz(props) {
     document.getElementById("country-input").focus();
   })
 
-
+  //src={"https://flagcdn.com/h240/" + props.flags[counter].image.toLowerCase()}
 
   return (  
     <div className='Quiz'>
@@ -47,7 +47,7 @@ function Quiz(props) {
         <button className="Button side" onClick={moveForward} ><i class="arrow right"></i></button>
       </h2>  
       <img
-        src={"https://flagcdn.com/h240/" + props.flags[counter].image.toLowerCase()}
+        src={'./flags/' + props.flags[counter].image}
         height="240"
         alt={props.flags[counter].keys[0]}
       />
