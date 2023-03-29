@@ -6,19 +6,25 @@ import flagset from './flags.json'
 
 function App() {
 
-  const [playing, setPlaying] = useState(true)
+  const [playing, setPlaying] = useState('playing')
   const [correctAnswers, setCorrectAnswers] = useState([])
   const [flags, setFlags] = useState([...flagset])
 
   function giveUp() {
-    setPlaying(false)
+    setPlaying('results')
+    let score = Math.round(((correctAnswers.length / 195) * 100))
+    let highscore = localStorage.getItem('high-score')
+    if (highscore) {
+      score = Math.max(score, parseInt(highscore))
+    }
+    localStorage.setItem('high-score', score)
   }
 
   function playAgain() {
     setCorrectAnswers([])
     setFlags([...flagset])
     shuffleFlags()
-    setPlaying(true)
+    setPlaying('playing')
   }
 
   function shuffleFlags() {
@@ -45,22 +51,28 @@ function App() {
   }, [])
 
 
-  if (playing) {
+  if (playing === 'playing') {
     return (
         <div className='App'>
-          <button className='Button' onClick={giveUp}>Give up</button>
+
           <Quiz 
             correctAnswers={correctAnswers}
             setCorrectAnswers={setCorrectAnswers}
             flags={flags}
             setFlags={setFlags}
           />
+          <button className='Button' onClick={giveUp}>Give up</button>
         </div>
       )
-  } else {
+  } else if (playing === 'results') {
     return ( 
         <div className='App'>
-          <button className='Button' onClick={playAgain}>Play again</button>
+          <div>
+            <button className='Button' onClick={playAgain}>Play again</button>
+          </div>
+          <div>
+            High Score: {localStorage.getItem('high-score') + '%'}
+          </div>
           <h2>
             {Math.round(((correctAnswers.length / 195) * 100)) + '%'}
           </h2>
