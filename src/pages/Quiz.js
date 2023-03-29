@@ -47,7 +47,7 @@ function Quiz(props) {
         <button className="Button side" onClick={moveForward} ><i class="arrow right"></i></button>
       </h2>  
       <img
-        src={'/static/flags/' + props.flags[counter].image}
+        src={'/static/flags/' + props.flags[counter].image.toLowerCase()}
         height="240"
         alt={props.flags[counter].keys[0]}
       />
